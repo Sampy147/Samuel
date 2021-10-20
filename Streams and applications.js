@@ -53,6 +53,34 @@ function repeat(n, s) {
 }
 
 
+function add_streams(s,y) { //rmb to add base case
+    if (is_null(s)) {
+        return y;
+    }
+    else if (is_null(y)){
+        return s;
+    } else {
+        pair(head(s) + head(y), ()=> (add_streams(stream_tail(s), stream_tail(y))));
+    }
+}
+
+const ones = pair(1, () => ones);
+
+
+function stream_map(f, s) {
+    return is_null(s)
+        ? null
+        : pair(f(head(s)), () => stream_map(f, stream_tail(s)));
+}
+
+function stream_filter(pred, s) {
+    return is_null(s)
+        ? null
+        : pred(head(s)) 
+        ? pair(head(s), () => stream_filter(pred, stream_tail(s)))
+        : stream_filter(pred, stream_tail(s));
+}
+
 
 
 

@@ -63,6 +63,9 @@ function add_streams(s,y) { //rmb to add base case
         pair(head(s) + head(y), ()=> (add_streams(stream_tail(s), stream_tail(y))));
     }
 }
+//add_stream can get quite confusing when you want to reproduce a certain series on stream form
+//Trick is to understand add_streams always adds up HEAD(first stream) + HEAD(second stream) in the current iteration
+//For the next iteration, just stream_tail both streams and then add up their heads again
 
 const ones = pair(1, () => ones);
 
@@ -80,7 +83,6 @@ function stream_filter(pred, s) {
         ? pair(head(s), () => stream_filter(pred, stream_tail(s)))
         : stream_filter(pred, stream_tail(s));
 }
-
 
 
 

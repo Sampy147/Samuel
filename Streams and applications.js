@@ -94,4 +94,66 @@ function stream_filter(pred, s) {
 
 
 
+//Tutorial S11
+
+//Q2a
+
+//1. 
+const alt_ones0 = pair(1, () => pair(-1, () => alt_ones0));
+//2. 
+const alt_ones1 = pair(1, () => stream_map(x => -x, alt_ones1));
+//3. 
+function alt_ones2(count) {
+    return count%2 === 0
+        ? pair(-1, () => alt_ones2(count + 1))
+        : pair(1, () => alt_ones2(count + 1)); 
+}
+alt_ones2(0);
+
+//Q2b
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

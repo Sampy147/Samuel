@@ -64,6 +64,27 @@ function s2(value) {
 // }
 
 
+//In class assignment
+
+stream_append( 
+    stream_map( sn => pair(head(s), sn), stream_tail(s)), 
+      stream_pairs(stream_tail(s)));
+      
+stream_append( 
+    stream_map( sn => pair(head(s), sn), stream_tail(s)), 
+    
+      stream_append(stream_map( sn => pair(head(s), sn), stream_tail(s)))
+      
+        stream_pairs(stream_tail(s))));
+        
+(1,2), (1,3), (1,4), (1,5), ()
+
+
+
+
+
+      
+
 
 
 

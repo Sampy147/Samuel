@@ -23,23 +23,27 @@ function split_efficient(n){
         return 0;
 }
 split(16);
-
+let sum = 0;
 function split_add(tree){
     
-    else if (is_number(head(tree)) && is_number(head(tail(tree))) {
+    if (is_null(tree)) {
+        return 0;
+    } else if (is_number(head(tree)) && is_number(head(tail(tree)))) {
         if (head(tree) > head(tail(tree))) {
             sum = head(tree) + sum;
         } else {
             sum = head(tail(tree)) + sum;
         }
     } else {
-        if (split_help(head(tree)) > split_help(head(tail(tree)))){
+        if (split_add(head(tree)) > split_add(head(tail(tree)))){
             sum = sum + head(tree);
         } else {
             sum = sum + head(tail(tree));
         }
     }
-
 }
+
+split_add(list(1, list(2, list(3, 4), 5), list(6, 7)));
+
 
 //8*8 + 4*4*2 + 4*2*2 + 8;

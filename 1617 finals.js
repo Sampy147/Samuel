@@ -64,4 +64,34 @@ function is_subset(S, T) {
 //tail(p) is null AFTER CORRECTION: list(2,4,6,8)
 
 //C.2
+//value is:  list("A", "T", "Q", "U", "R", "P")
+
+
+//D.
+
+function mutable_append(xs, ys) {
+    const newlist = map(x => list(x), xs);
+    //display(newlist);
+    function helper(xs, ys) {
+        if (is_null(xs) || is_null(tail(xs))) {
+            return ys;
+        } else {
+            set_tail(head(xs), helper(head(tail(xs)), ys));
+            display(xs);
+        }
+        
+    }
+    
+    return helper(newlist, ys);
+}
+
+const A = list(1,2,3);
+const B = list(4,5,6);
+mutable_append(A, B);
+A;
+
+//set_tail(null, list(1,2,3));
+ 
+
+
 

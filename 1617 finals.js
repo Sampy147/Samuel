@@ -90,6 +90,16 @@ const B = list(4,5,6);
 mutable_append(A, B);
 A;
 
+function d_append(xs, ys) {
+if (is_null(xs)) {
+return ys;
+} else {
+set_tail(xs, d_append(tail(xs), ys));
+return xs;
+}
+}
+
+
 //set_tail(null, list(1,2,3));
  
 

@@ -230,3 +230,9 @@ factorial_iter_cps(5, display);  // displays 120
 
 
 //4
+//B
+
+
+function hot_reload(cf1, cf2) { 
+        return set_tail(tail(cf1), list(function_body(cf2), list_ref(cf1, 3)));
+} 

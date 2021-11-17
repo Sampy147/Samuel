@@ -70,38 +70,163 @@ function is_subset(S, T) {
 //D.
 
 function mutable_append(xs, ys) {
-    const newlist = map(x => list(x), xs);
-    //display(newlist);
-    function helper(xs, ys) {
-        if (is_null(xs) || is_null(tail(xs))) {
-            return ys;
-        } else {
-            set_tail(head(xs), helper(head(tail(xs)), ys));
-            display(xs);
-        }
-        
+    if (is_null(xs)) {
+        return ys;
+    } else {
+        set_tail(xs, mutable_append(tail(xs), ys));
+        return xs;
     }
+}
+
+//E.
+
+function transform_tree(t) {
+    if (is_null(t)) {
+        return null;
+    } else {
+        return map(x => funky(x), reverse(t));
+    }
+}
+
+function funky(x) {
+    if (is_null(x)) {
+        return null;
+    } else if (is_number(x)) {
+        return x;
+    } else if (is_list(x)) {
+        return map(x=> funky(x), reverse(x));
+    }
+}
+
+//F.
+
+function shorten_stream(s, k) {
     
-    return helper(newlist, ys);
+    if (k <= 0) {
+        return null;
+    } else if (is_null(s)) {
+        return null;
+    } else {
+        return pair(head(s), () => shorten_stream(stream_tail(s), k -1));
+    }
+
 }
 
-const A = list(1,2,3);
-const B = list(4,5,6);
-mutable_append(A, B);
-A;
+//Qn 2.
 
-function d_append(xs, ys) {
-if (is_null(xs)) {
-return ys;
-} else {
-set_tail(xs, d_append(tail(xs), ys));
-return xs;
-}
+//B
+function is_linked(x, y) {//check if head(x) is found in y 
+    return is_null(tail(y))
+        ? false
+        : head(x) === head(head(tail(y))) || is_linked(x, tail(y));
 }
 
+//Think of alternative later
 
-//set_tail(null, list(1,2,3));
+//C
+//returns true if nodex is proper and false otherwise
+//not exactly sure what this qn is saying
+function is_proper(x) {
+    //find if there is another head(x) in the x-list
+    //if there is, then it is proper
+    const headx = head(x);
+    const xlist = tail(x);
+    function help(x) {
+        if (is_null(xlist)) {
+            return false;
+        } else {
+            return headx === head(head(x)) || help(tail(x));
+        }
+    }
+    return help(xlist);
+}
+
+//Pretty sure there's a more efficient way around as well
+
+//D
+//Function seems exactly the same as is_linked (almost)
+
+function is_connected(x, y) {//check if head(x) is found in y 
+    return head(x) === head(y)
+        ? true
+        : is_linked(x, y);
+}
+
+
+
+//3
+//A
+
+//Given function
+function plus_cps(x, y, ret) { 
+    return ret(x + y); 
+} 
+
+//Ans function
+function sum_cps(x, y, z, ret) {
+    return plus_cps(x,y, ret1 => ret(ret1 + z)) ;
+}
+
+
+//3
+//B
+
+//Given function 
+// function factorial(n) { 
+//     if (n <= 0) { 
+//         return 1; 
+//     } else { 
+//         return n * factorial(n – 1); 
+//     } 
+// } 
+
+
+//Ans function in CPS
+function factorial(n, ret) {
+    if (n <= 0) {
+        return ret(1);
+    } else {
+        return factorial(n - 1, result => ret(n * result));
+    }
+}
+
+
+//C(i)
+
+//Given function
+
+// function fact_iter(n, acc) { 
+//     if (n <= 0) { 
+//         return acc; 
+//     } else { 
+//         return fact_iter(n – 1, n * acc); 
+//     } 
+// } 
+
+// function factorial_iter(n) { 
+//     return fact_iter(n, 1); 
+// } 
+// factorial_iter(5);  // returns 120 
+
+//Ans function 
+function fact_iter_cps(n, acc, ret) { 
+    if (n <= 0) { 
+        return ret(acc); //The only change here. Because as long as acc is displayed at the end, it is considered cps
+    } else { 
+        return fact_iter_cps(n - 1, n * acc, ret); 
+    } 
+} 
  
+function factorial_iter_cps(n, ret) { 
+    return fact_iter_cps(n, 1, ret); 
+} 
+ 
+factorial_iter_cps(5, display);  // displays 120 
+
+//C(ii)
+//Can I characterise iterative functions wrt CPS?
+//When we turn iterative functions into CPS, the continuation function is only applied at the base case, and not applied in the recursive call.
+//This is unlike the original continuation function. Thus we cannot characterise iterative functions wrt CPS
 
 
-
+//4
